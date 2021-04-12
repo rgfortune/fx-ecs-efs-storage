@@ -1,0 +1,119 @@
+{
+    "family": "forex",
+    "taskRoleArn": "arn:aws:iam::052104220843:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::052104220843:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+      {
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/forex",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "ecs"
+          }
+        },
+        "portMappings": [
+          {
+            "hostPort": 80,
+            "protocol": "tcp",
+            "containerPort": 80
+          }
+        ],
+        "cpu": 0,
+        "environment": [],
+        "image": "052104220843.dkr.ecr.us-east-1.amazonaws.com/http-proxy:ecs",
+        "dependsOn": [
+          {
+            "containerName": "app",
+            "condition": "START"
+          }
+        ],
+        "name": "reverse-proxy"
+      },
+      {
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/forex",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "ecs"
+          }
+        },
+        "cpu": 0,
+        "environment": [
+          {
+            "name": "AWS_ACCESS_KEY_ID",
+            "value": "AKIAQYINHKCVYNUIXWFK"
+          },
+          {
+            "name": "AWS_SECRET_ACCESS_KEY",
+            "value": "4ICshOocPmandBiPs38Kdh66QTROad0jBfQf69KP"
+          },
+          {
+            "name": "DBHOST",
+            "value": "127.0.0.1"
+          }
+        ],
+        "mountPoints": [
+          {
+            "readOnly": null,
+            "containerPath": "/opt/flask/forex",
+            "sourceVolume": "fx-app-data-flask"
+          }
+        ],
+        "image": "052104220843.dkr.ecr.us-east-1.amazonaws.com/fx-app:latest",
+        "dependsOn": [
+          {
+            "containerName": "fxdb",
+            "condition": "START"
+          }
+        ],
+        "name": "app"
+      },
+      {
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/forex",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "ecs"
+          }
+        },
+        "cpu": 0,
+        "environment": [],
+        "image": "mongo:4.0.14-xenial",
+        "name": "fxdb"
+      }
+    ],
+    "volumes": [
+      {
+        "efsVolumeConfiguration": {
+          "fileSystemId": "fs-321e1a87",
+          "authorizationConfig": {
+            "iam": "ENABLED",
+            "accessPointId": "fsap-073326d1a778e0cc9"
+          },
+          "transitEncryption": "ENABLED",
+          "rootDirectory": "/"
+        },
+        "name": "fx-app-data-flask"
+      }
+    ],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "compatibilities": [
+      "EC2",
+      "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "2048",
+    "tags": [
+      {
+          "key": "Owner",
+          "value": "Ricardo Fortune"
+      }
+    ]
+  }
