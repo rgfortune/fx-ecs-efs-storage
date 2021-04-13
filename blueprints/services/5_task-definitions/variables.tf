@@ -9,6 +9,6 @@ variable "env" {
   type        = string
   description = "Environment"
 }
-variable "rfortune_count" {
-  description = "Boolean Integer"
+variable "users" {
+  type = map
 }

@@ -8,6 +8,8 @@ module "task_definitions" {
   region = var.region
   env = var.env
 
-  # Task for Ricardo Fortune 
-  rfortune_count = var.rfortune_count
+  # FX Users - Each user map creates a task and SNS topic/subscription
+  users    = {
+    rfortune = "ricardo.g.fortune@gmail.com"
+  }
 }

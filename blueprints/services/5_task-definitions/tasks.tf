@@ -3,7 +3,9 @@
 #-------------------------------------
 
 # Python Flask Logs Access Point
-resource "aws_efs_access_point" "rfortune_flask_logs" {
+resource "aws_efs_access_point" "flask_logs" {
+
+  for_each = var.users
   file_system_id = data.terraform_remote_state.fx_storage.outputs.fx_storage_id
 
   #forex user
@@ -13,18 +15,18 @@ resource "aws_efs_access_point" "rfortune_flask_logs" {
   }
 
   root_directory {
-    path = "/rfortune/logs"
+    path = "/${each.key}/logs"
   }
 
-  count = var.rfortune_count
-
   tags = {
-    "Name" = "Python Flask Logs"
+    "Name" = "Python Flask Logs - ${each.key}"
   }
 }
 
 # FX DB Access Point
-resource "aws_efs_access_point" "rfortune_fx_db" {
+resource "aws_efs_access_point" "fx_db" {
+
+  for_each = var.users
   file_system_id = data.terraform_remote_state.fx_storage.outputs.fx_storage_id
 
   # mongodb user
@@ -34,13 +36,11 @@ resource "aws_efs_access_point" "rfortune_fx_db" {
   }
 
   root_directory {
-    path = "/rfortune/data/db"
+    path = "/${each.key}/data/db"
   }
 
-  count = var.rfortune_count
-
   tags = {
-    "Name" = "FX DB Data Directory"
+    "Name" = "FX DB Data Directory - ${each.key}"
   }
 }
 
@@ -49,15 +49,15 @@ resource "aws_efs_access_point" "rfortune_fx_db" {
 #------------------------------
 
 
-resource "aws_ecs_task_definition" "rfortune-fx" {
-  family                = "rfortune-FX"
+resource "aws_ecs_task_definition" "fx" {
+  for_each = var.users
+  family = "${each.key}-FX"
   task_role_arn = data.terraform_remote_state.iam.outputs.ecs_task_role_arn
   execution_role_arn = data.terraform_remote_state.iam.outputs.ecs_task_execution_role_arn
   network_mode = "awsvpc"
   cpu = "1024"
   memory = "2048"
   requires_compatibilities = [ "FARGATE" ]
-  count = var.rfortune_count
   container_definitions = <<DEFINITION
   [
       {
@@ -174,7 +174,7 @@ resource "aws_ecs_task_definition" "rfortune-fx" {
       transit_encryption      = "ENABLED"
       transit_encryption_port = 3999
       authorization_config {
-        access_point_id = aws_efs_access_point.rfortune_flask_logs[count.index].id
+        access_point_id = aws_efs_access_point.flask_logs[each.key].id
         iam             = "ENABLED"
       }
     }
@@ -188,7 +188,7 @@ resource "aws_ecs_task_definition" "rfortune-fx" {
       transit_encryption      = "ENABLED"
       transit_encryption_port = 4999
       authorization_config {
-        access_point_id = aws_efs_access_point.rfortune_fx_db[count.index].id
+        access_point_id = aws_efs_access_point.fx_db[each.key].id
         iam             = "ENABLED"
       }
     }
@@ -204,12 +204,14 @@ resource "aws_ecs_task_definition" "rfortune-fx" {
 # SNS Subscriptions
 #-------------------------------------
 
-resource "aws_sns_topic" "rfortune_fx_orders" {
-  name = "rfortune-fx-orders"
+resource "aws_sns_topic" "fx_orders" {
+  for_each = var.users
+  name = "fx-orders-${each.key}"
 }
 
-resource "aws_sns_topic_subscription" "rfortune_fx_orders" {
-  topic_arn = aws_sns_topic.rfortune_fx_orders.arn
+resource "aws_sns_topic_subscription" "fx_orders" {
+  for_each = var.users
+  topic_arn = aws_sns_topic.fx_orders[each.key].arn
   protocol  = "email"
-  endpoint  = "ricardo.g.fortune@gmail.com"
+  endpoint  = each.value
 }
