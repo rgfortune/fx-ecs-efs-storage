@@ -56,7 +56,8 @@ data "aws_iam_policy_document" "ecs_task_execution_policy" {
       "ecr:BatchGetImage",
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
-      "logs:PutLogEvents"
+      "logs:PutLogEvents",
+      "sns:Publish"
     ]
     resources = ["*"]
   }
