@@ -44,6 +44,23 @@ resource "aws_efs_access_point" "fx_db" {
   }
 }
 
+#-------------------------------------
+# SNS Subscriptions
+#-------------------------------------
+
+resource "aws_sns_topic" "fx_orders" {
+  for_each = var.users
+  name = "fx-orders-${each.key}"
+}
+
+resource "aws_sns_topic_subscription" "fx_orders" {
+  for_each = var.users
+  topic_arn = aws_sns_topic.fx_orders[each.key].arn
+  protocol  = "email"
+  endpoint  = each.value
+}
+
+
 #------------------------------
 # Task Definition               
 #------------------------------
@@ -103,6 +120,14 @@ resource "aws_ecs_task_definition" "fx" {
           {
             "name": "DBHOST",
             "value": "127.0.0.1"
+          },
+          {
+            "name": "SNSTOPIC",
+            "value": "${aws_sns_topic.fx_orders[each.key].arn}"
+          },
+          {
+            "name": "AWS_DEFAULT_REGION",
+            "value": "${var.region}"
           }
         ],
         "mountPoints": [
@@ -198,20 +223,4 @@ resource "aws_ecs_task_definition" "fx" {
     "Owner" = "Ricardo Fortune"
   }
 
-}
-
-#-------------------------------------
-# SNS Subscriptions
-#-------------------------------------
-
-resource "aws_sns_topic" "fx_orders" {
-  for_each = var.users
-  name = "fx-orders-${each.key}"
-}
-
-resource "aws_sns_topic_subscription" "fx_orders" {
-  for_each = var.users
-  topic_arn = aws_sns_topic.fx_orders[each.key].arn
-  protocol  = "email"
-  endpoint  = each.value
 }
