@@ -6,12 +6,12 @@
 # git::ssh://git@bitbucket_rgfortune/rgfortune/terraform-vpc_basic-module.git
 # git::ssh://git@bitbucket_rgfortune/rgfortune/terraform-vpc-module.git
 #
-# https://github.com/rgfortune/terraform-basic-vpc-module.git
+# github.com/rgfortune/terraform-basic-vpc-module
 #------------------------------------------------
 
 
 module "vpc" {
-  source = "https://github.com/rgfortune/terraform-basic-vpc-module.git"
+  source = "github.com/rgfortune/terraform-basic-vpc-module"
 
   env      = var.env
   vpc_name = var.vpc_name
