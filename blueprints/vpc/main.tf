@@ -17,4 +17,6 @@ module "vpc" {
   vpc_name = var.vpc_name
   cidr     = var.cidr
   region   = var.region
+  project_name = var.project_name
+  owner = var.owner
 }

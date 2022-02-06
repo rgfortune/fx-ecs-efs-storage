@@ -18,5 +18,12 @@ variable "region" {
   type        = string
   description = "e.g. eu-west-2"
 }
-
+variable "project_name" {
+  type        = string
+  description = "e.g. eu-west-2"
+}
+variable "owner" {
+  type        = string
+  description = "e.g. eu-west-2"
+}
 
