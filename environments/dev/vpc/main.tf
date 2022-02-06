@@ -9,6 +9,4 @@ module "vpc" {
   cidr     = var.cidr
   region   = var.region
   env      = var.env
-  profile  = var.profile
-
 }
