@@ -7,10 +7,12 @@ on:
     paths:
     - './environments/dev/vpc'
     - './blueprints/vpc'
+    - '/.github/workflows/ecs-tf-plan.yml'
   pull_request:
     paths:
     - './environments/dev/vpc'
     - './blueprints/vpc'
+    - '/.github/workflows/ecs-tf-plan.yml'
 
 jobs:
   tf-plan:
