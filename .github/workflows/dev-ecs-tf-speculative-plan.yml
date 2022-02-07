@@ -1,4 +1,4 @@
-name: 'dev-vpc-tf-speculative-plan'
+name: 'dev-ecs-vpc-tf-speculative-plan'
 
 on:
   push:
@@ -7,17 +7,17 @@ on:
     paths:
     - 'environments/dev/vpc'
     - 'blueprints/vpc'
-    - '.github/workflows/dev-ecs-tf-plan.yml'
+    - '.github/workflows/dev-ecs-tf-speculative-plan.yml'
   pull_request:
     paths:
     - 'environments/dev/vpc'
     - 'blueprints/vpc'
-    - '.github/workflows/dev-ecs-tf-plan.yml'
+    - '.github/workflows/dev-ecs-tf-speculative-plan.yml'
   workflow_dispatch:
 
 jobs:
-  tf-plan:
-    name: 'tf-plan'
+  tf-speculative-plan:
+    name: 'tf-speculative-plan'
     runs-on: ubuntu-latest
     environment: dev
     env:
