@@ -29,7 +29,7 @@ jobs:
 
       # VPC
       TF_VAR_vpc_name: "Fargate FX VPC"
-      TF_VAR_cidr: 10.193.18.0/24
+      TF_VAR_cidr: 10.193.36.0/24
       TF_VAR_project_name: "Forex"
       TF_VAR_owner: "Ricardo Fortune"
 
