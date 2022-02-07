@@ -11,5 +11,5 @@ terraform {
     bucket = "ecs-fx-tfstate"
     key    = "ecs-fx-vpc.terraform.tfstate"
     region = "us-east-1"
-	}
+  }
 }
