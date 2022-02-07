@@ -1,11 +1,11 @@
-name: 'dev-vpc-tf-speculative-plan'
+name: 'dev-ecs-vpc-tf-apply'
 
 on:
   workflow_dispatch:
 
 jobs:
-  tf-plan:
-    name: 'tf-plan'
+  tf-apply:
+    name: 'tf-apply'
     runs-on: ubuntu-latest
     environment: dev
     env:
