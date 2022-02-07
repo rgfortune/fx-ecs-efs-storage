@@ -13,11 +13,13 @@ on:
     - 'environments/dev/vpc'
     - 'blueprints/vpc'
     - '.github/workflows/ecs-tf-plan.yml'
+  workflow_dispatch:
 
 jobs:
   tf-plan:
     name: 'tf-plan'
     runs-on: ubuntu-latest
+    environment: dev
     env:
       # Account and Environment
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
