@@ -53,6 +53,6 @@ jobs:
       working-directory: ./environments/dev/vpc
 
     # Apply the Terraform execution plan
-    - name: Terraform Plan
+    - name: Terraform Apply
       run: terraform apply -auto-approve
       working-directory: ./environments/dev/vpc
