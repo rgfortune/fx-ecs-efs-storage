@@ -4,7 +4,13 @@ on:
   push:
     branches:
     - master
+    paths:
+    - './environments/dev/vpc'
+    - './blueprints/vpc'
   pull_request:
+    paths:
+    - './environments/dev/vpc'
+    - './blueprints/vpc'
 
 jobs:
   tf-plan:
@@ -38,7 +44,7 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.0.4
-    
+
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
