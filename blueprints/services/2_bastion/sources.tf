@@ -3,7 +3,7 @@
 #------------------------------------------------
 
 data "terraform_remote_state" "vpc" {
-  backend = "local"
+  backend = "s3"
 
   # Paths are relative to the calling/root module.
   # {path.module} - making the path relative to the module where the expression exists.
@@ -24,7 +24,7 @@ data "terraform_remote_state" "vpc" {
 #------------------------------------------------
 
 data "terraform_remote_state" "iam" {
-  backend = "local"
+  backend = "s3"
 
   # Paths are relative to the calling/root module.
   # {path.module} - making the path relative to the module where the expression exists.
