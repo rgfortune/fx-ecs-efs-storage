@@ -22,7 +22,7 @@ variable "env" {
   description = "Environment"
 }
 variable "profile" {
-  type        = string
+  type = string
 }
 variable "home_ip" {
   type        = string

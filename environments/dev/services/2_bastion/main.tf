@@ -6,7 +6,7 @@ module "bastion" {
   source = "../../../../blueprints/services/2_bastion"
 
   # VPC Variables
-  env          = var.env
+  env = var.env
 
   # EC2 Variables
   key_name     = var.key_name
@@ -15,5 +15,5 @@ module "bastion" {
   region       = var.region
 
   # Security Group Variables
-  home_ip      = var.home_ip
+  home_ip = var.home_ip
 }
