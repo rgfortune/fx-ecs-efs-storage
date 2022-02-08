@@ -13,6 +13,10 @@ on:
     - 'environments/dev/services/1_iam'
     - 'blueprints/services/1_iam'
     - '.github/workflows/dev-iam-tf-speculative-plan.yml'
+  on:
+    workflow_run:
+      workflows: [dev-vpc-tf-speculative-plan]
+      types: [completed]
   workflow_dispatch:
 
 jobs:
@@ -76,4 +80,4 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan
-      working-directory: ./environments/dev/services/1_am
+      working-directory: ./environments/dev/services/1_iam
