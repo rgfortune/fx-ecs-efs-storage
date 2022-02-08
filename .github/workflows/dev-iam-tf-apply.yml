@@ -1,4 +1,4 @@
-name: 'dev-iam-tf-speculative-plan'
+name: 'dev-iam-tf-apply'
 
 on:
   push:

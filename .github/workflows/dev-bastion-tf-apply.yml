@@ -1,4 +1,4 @@
-name: 'dev-bastion-tf-speculative-plan'
+name: 'dev-bastion-tf-apply'
 
 on:
   push:
