@@ -13,10 +13,9 @@ on:
     - 'environments/dev/services/2_bastion'
     - 'blueprints/services/2_bastion'
     - '.github/workflows/dev-bastion-tf-speculative-plan.yml'
-  on:
-    workflow_run:
-      workflows: [dev-vpc-tf-speculative-plan]
-      types: [completed]
+  workflow_run:
+    workflows: [dev-vpc-tf-speculative-plan]
+    types: [completed]
   workflow_dispatch:
 
 jobs:
