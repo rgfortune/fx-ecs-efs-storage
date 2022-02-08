@@ -7,5 +7,5 @@ variable "region" {
   description = "e.g. eu-west-2"
 }
 variable "profile" {
-  type        = string
+  type = string
 }

@@ -25,7 +25,7 @@ EOF
 
 resource "aws_iam_role" "ecs_task_role" {
   name = "ecsTaskRole"
- 
+
   assume_role_policy = <<EOF
 {
  "Version": "2012-10-17",
