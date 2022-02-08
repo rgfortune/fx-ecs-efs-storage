@@ -9,7 +9,9 @@ data "terraform_remote_state" "vpc" {
   # {path.module} - making the path relative to the module where the expression exists.
 
   config = {
-    path = "${path.module}/../../../environments/${var.env}/vpc/terraform.tfstate"
+    bucket = "ecs-fx-tfstate"
+    key    = "ecs-fx-vpc.terraform.tfstate"
+    region = "us-east-1"
   }
 
   # https://www.terraform.io/docs/language/expressions/references.html#path-module
@@ -28,7 +30,9 @@ data "terraform_remote_state" "iam" {
   # {path.module} - making the path relative to the module where the expression exists.
 
   config = {
-    path = "${path.module}/../../../environments/${var.env}/services/1_iam/terraform.tfstate"
+    bucket = "ecs-fx-tfstate"
+    key    = "ecs-fx-iam.terraform.tfstate"
+    region = "us-east-1"
   }
 
   # https://www.terraform.io/docs/language/expressions/references.html#path-module
