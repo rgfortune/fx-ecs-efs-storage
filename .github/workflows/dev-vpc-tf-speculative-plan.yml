@@ -16,8 +16,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  tf-speculative-plan:
-    name: 'tf-speculative-plan'
+  vpc:
+    name: 'vpc'
     runs-on: ubuntu-latest
     environment: dev
     env:
@@ -32,6 +32,18 @@ jobs:
       TF_VAR_cidr: 10.193.36.0/24
       TF_VAR_project_name: "Forex"
       TF_VAR_owner: "Ricardo Fortune"
+
+      # Bastion
+      TF_VAR_key_name: automation
+      TF_VAR_bastion_ami: ami-0742b4e673072066f
+      TF_VAR_bastion_type: t3.micro
+
+      # EC2 Security Groups
+      TF_VAR_home_ip: 79.73.190.155/32
+
+      # Cluster
+      TF_VAR_cluster_name: fx
+      TF_VAR_cluster_tag: "FX Cluster"
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
