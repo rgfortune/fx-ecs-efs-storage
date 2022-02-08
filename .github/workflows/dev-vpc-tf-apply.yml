@@ -1,23 +1,11 @@
-name: 'dev-ecs-vpc-tf-speculative-plan'
+name: 'dev-vpc-tf-apply'
 
 on:
-  push:
-    branches:
-    - master
-    paths:
-    - 'environments/dev/vpc'
-    - 'blueprints/vpc'
-    - '.github/workflows/dev-ecs-tf-speculative-plan.yml'
-  pull_request:
-    paths:
-    - 'environments/dev/vpc'
-    - 'blueprints/vpc'
-    - '.github/workflows/dev-ecs-tf-speculative-plan.yml'
   workflow_dispatch:
 
 jobs:
-  tf-speculative-plan:
-    name: 'tf-speculative-plan'
+  tf-apply:
+    name: 'tf-apply'
     runs-on: ubuntu-latest
     environment: dev
     env:
@@ -62,4 +50,9 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan
+      working-directory: ./environments/dev/vpc
+
+    # Apply the Terraform execution plan
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
       working-directory: ./environments/dev/vpc
