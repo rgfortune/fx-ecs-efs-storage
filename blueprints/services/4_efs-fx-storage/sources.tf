@@ -3,13 +3,15 @@
 #------------------------------------------------
 
 data "terraform_remote_state" "vpc" {
-  backend = "local"
+  backend = "s3"
 
   # Paths are relative to the calling module.
   # Making it relative to the root module for readability
 
   config = {
-    path = "${path.module}/../../../environments/${var.env}/vpc/terraform.tfstate"
+    bucket = "ecs-fx-tfstate"
+    key    = "ecs-fx-vpc.terraform.tfstate"
+    region = "us-east-1"
   }
 
   # https://www.terraform.io/docs/language/expressions/references.html#path-module
@@ -22,13 +24,15 @@ data "terraform_remote_state" "vpc" {
 #------------------------------------------------
 
 data "terraform_remote_state" "fargate_cluster" {
-  backend = "local"
+  backend = "s3"
 
   # Paths are relative to the calling/root module.
   # {path.module} - making the path relative to the module where the expression exists.
 
   config = {
-    path = "${path.module}/../../../environments/${var.env}/services/3_fargate-cluster/terraform.tfstate"
+    bucket = "ecs-fx-tfstate"
+    key    = "ecs-fx-fargate_cluster.terraform.tfstate"
+    region = "us-east-1"
   }
 
   # https://www.terraform.io/docs/language/expressions/references.html#path-module

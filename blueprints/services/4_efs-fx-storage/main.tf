@@ -7,7 +7,7 @@ resource "aws_efs_file_system" "fx_storage" {
   encrypted      = true
 
   tags = {
-    Name        = "FX Storage Volume"
+    Name = "FX Storage Volume"
   }
 }
 

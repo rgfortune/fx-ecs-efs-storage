@@ -10,6 +10,3 @@ variable "env" {
   type        = string
   description = "Environment"
 }
-variable "profile" {
-  type        = string
-}

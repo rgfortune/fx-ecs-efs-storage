@@ -16,10 +16,10 @@ resource "aws_security_group" "efs" {
   }
 
   ingress {
-    description = "EFS access from task containers"
-    from_port   = 2049
-    to_port     = 2049
-    protocol    = "tcp"
+    description     = "EFS access from task containers"
+    from_port       = 2049
+    to_port         = 2049
+    protocol        = "tcp"
     security_groups = [data.terraform_remote_state.fargate_cluster.outputs.fx_task_sg]
   }
 

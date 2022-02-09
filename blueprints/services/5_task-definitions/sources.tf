@@ -3,13 +3,15 @@
 #------------------------------------------------
 
 data "terraform_remote_state" "vpc" {
-  backend = "local"
+  backend = "s3"
 
   # Paths are relative to the calling/root module.
   # {path.module} - making the path relative to the module where the expression exists.
 
   config = {
-    path = "${path.module}/../../../environments/${var.env}/vpc/terraform.tfstate"
+    bucket = "ecs-fx-tfstate"
+    key    = "ecs-fx-vpc.terraform.tfstate"
+    region = "us-east-1"
   }
 
   # https://www.terraform.io/docs/language/expressions/references.html#path-module
@@ -23,13 +25,15 @@ data "terraform_remote_state" "vpc" {
 #------------------------------------------------
 
 data "terraform_remote_state" "fx_storage" {
-  backend = "local"
+  backend = "s3"
 
   # Paths are relative to the calling/root module.
   # {path.module} - making the path relative to the module where the expression exists.
 
   config = {
-    path = "${path.module}/../../../environments/${var.env}/services/4_efs-fx-storage/terraform.tfstate"
+    bucket = "ecs-fx-tfstate"
+    key    = "ecs-fx-efs.terraform.tfstate"
+    region = "us-east-1"
   }
 
   # https://www.terraform.io/docs/language/expressions/references.html#path-module
@@ -43,13 +47,15 @@ data "terraform_remote_state" "fx_storage" {
 #------------------------------------------------
 
 data "terraform_remote_state" "iam" {
-  backend = "local"
+  backend = "s3"
 
   # Paths are relative to the calling/root module.
   # {path.module} - making the path relative to the module where the expression exists.
 
   config = {
-    path = "${path.module}/../../../environments/${var.env}/services/1_iam/terraform.tfstate"
+    bucket = "ecs-fx-tfstate"
+    key    = "ecs-fx-iam.terraform.tfstate"
+    region = "us-east-1"
   }
 
   # https://www.terraform.io/docs/language/expressions/references.html#path-module

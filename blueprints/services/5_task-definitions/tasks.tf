@@ -5,7 +5,7 @@
 # Python Flask Logs Access Point
 resource "aws_efs_access_point" "flask_logs" {
 
-  for_each = var.users
+  for_each       = var.users
   file_system_id = data.terraform_remote_state.fx_storage.outputs.fx_storage_id
 
   #forex user
@@ -26,7 +26,7 @@ resource "aws_efs_access_point" "flask_logs" {
 # FX DB Access Point
 resource "aws_efs_access_point" "fx_db" {
 
-  for_each = var.users
+  for_each       = var.users
   file_system_id = data.terraform_remote_state.fx_storage.outputs.fx_storage_id
 
   # mongodb user
@@ -50,15 +50,15 @@ resource "aws_efs_access_point" "fx_db" {
 
 
 resource "aws_ecs_task_definition" "fx" {
-  for_each = var.users
-  family = "${each.key}-FX"
-  task_role_arn = data.terraform_remote_state.iam.outputs.ecs_task_role_arn
-  execution_role_arn = data.terraform_remote_state.iam.outputs.ecs_task_execution_role_arn
-  network_mode = "awsvpc"
-  cpu = "1024"
-  memory = "2048"
-  requires_compatibilities = [ "FARGATE" ]
-  container_definitions = <<DEFINITION
+  for_each                 = var.users
+  family                   = "${each.key}-FX"
+  task_role_arn            = data.terraform_remote_state.iam.outputs.ecs_task_role_arn
+  execution_role_arn       = data.terraform_remote_state.iam.outputs.ecs_task_execution_role_arn
+  network_mode             = "awsvpc"
+  cpu                      = "1024"
+  memory                   = "2048"
+  requires_compatibilities = ["FARGATE"]
+  container_definitions    = <<DEFINITION
   [
       {
         "logConfiguration": {
@@ -206,11 +206,11 @@ resource "aws_ecs_task_definition" "fx" {
 
 resource "aws_sns_topic" "fx_orders" {
   for_each = var.users
-  name = "fx-orders-${each.key}"
+  name     = "fx-orders-${each.key}"
 }
 
 resource "aws_sns_topic_subscription" "fx_orders" {
-  for_each = var.users
+  for_each  = var.users
   topic_arn = aws_sns_topic.fx_orders[each.key].arn
   protocol  = "email"
   endpoint  = each.value

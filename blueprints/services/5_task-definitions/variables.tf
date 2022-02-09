@@ -10,5 +10,5 @@ variable "env" {
   description = "Environment"
 }
 variable "users" {
-  type = map
+  type = map(any)
 }

@@ -3,10 +3,10 @@
 #----------------------------------
 
 resource "aws_ecs_cluster" "fx" {
-  name = var.cluster_name
-  capacity_providers = [ "FARGATE", "FARGATE_SPOT" ]
+  name               = var.cluster_name
+  capacity_providers = ["FARGATE", "FARGATE_SPOT"]
   setting {
-    name = "containerInsights"
+    name  = "containerInsights"
     value = "enabled"
   }
   tags = {
