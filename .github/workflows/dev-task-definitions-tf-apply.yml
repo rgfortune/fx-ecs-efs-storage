@@ -13,15 +13,11 @@ on:
     - 'environments/dev/services/5_task-definitions'
     - 'blueprints/services/5_task-definitions'
     - '.github/workflows/dev-task-definitions-tf-speculative-plan.yml'
-  workflow_run:
-    workflows: [dev-efs-fx-storage-tf-apply]
-    types: [completed]
   workflow_dispatch:
 
 jobs:
   task-definitions:
     name: 'task-definitions'
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: dev
     env:
