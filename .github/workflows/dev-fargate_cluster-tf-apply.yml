@@ -14,7 +14,7 @@ on:
     - 'blueprints/services/3_fargate-cluster'
     - '.github/workflows/dev-fargate_cluster-tf-speculative-plan.yml'
   workflow_run:
-    workflows: [dev-full_stack-tf-apply]
+    workflows: [dev-vpc-tf-apply]
     types: [completed]
   workflow_dispatch:
 
