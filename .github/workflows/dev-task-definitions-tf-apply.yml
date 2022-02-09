@@ -14,7 +14,7 @@ on:
     - 'blueprints/services/5_task-definitions'
     - '.github/workflows/dev-task-definitions-tf-speculative-plan.yml'
   workflow_run:
-    workflows: [dev-efs-fx-storage-tf-apply, dev-iam-tf-apply]
+    workflows: [dev-efs-fx-storage-tf-apply]
     types: [completed]
   workflow_dispatch:
 

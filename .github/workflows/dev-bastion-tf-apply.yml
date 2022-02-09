@@ -14,7 +14,7 @@ on:
     - 'blueprints/services/2_bastion'
     - '.github/workflows/dev-bastion-tf-speculative-plan.yml'
   workflow_run:
-    workflows: [dev-iam-tf-apply]
+    workflows: [dev-vpc-tf-apply]
     types: [completed]
   workflow_dispatch:
 

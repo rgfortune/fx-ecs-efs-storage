@@ -14,13 +14,14 @@ on:
     - 'blueprints/services/1_iam'
     - '.github/workflows/dev-iam-tf-speculative-plan.yml'
   workflow_run:
-    workflows: [dev-vpc-tf-apply]
+    workflows: [dev-full_stack-tf-apply]
     types: [completed]
   workflow_dispatch:
 
 jobs:
   iam:
     name: 'iam'
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: dev
     env:
