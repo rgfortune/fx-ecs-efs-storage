@@ -14,7 +14,7 @@ on:
     - 'blueprints/services/4_efs-fx-storage'
     - '.github/workflows/dev-efs-fx-storage-tf-speculative-plan.yml'
   workflow_run:
-    workflows: [dev-vpc-tf-apply]
+    workflows: [dev-fargate_cluster-tf-apply]
     types: [completed]
   workflow_dispatch:
 
