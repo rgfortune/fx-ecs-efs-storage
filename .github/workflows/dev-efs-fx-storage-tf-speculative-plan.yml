@@ -13,15 +13,11 @@ on:
     - 'environments/dev/services/4_efs-fx-storage'
     - 'blueprints/services/4_efs-fx-storage'
     - '.github/workflows/dev-efs-fx-storage-tf-speculative-plan.yml'
-  workflow_run:
-    workflows: [dev-vpc-tf-apply]
-    types: [completed]
   workflow_dispatch:
 
 jobs:
   efs-fx-storage:
     name: 'efs-fx-storage'
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: dev
     env:
