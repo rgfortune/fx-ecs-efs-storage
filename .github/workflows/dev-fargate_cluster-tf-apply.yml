@@ -13,10 +13,14 @@ on:
     - 'environments/dev/services/3_fargate-cluster'
     - 'blueprints/services/3_fargate-cluster'
     - '.github/workflows/dev-fargate_cluster-tf-speculative-plan.yml'
+  workflow_run:
+    workflows: [dev-full_stack-tf-apply]
+    types: [completed]
   workflow_dispatch:
 
 jobs:
   fargate_cluster:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: 'fargate_cluster'
     runs-on: ubuntu-latest
     environment: dev

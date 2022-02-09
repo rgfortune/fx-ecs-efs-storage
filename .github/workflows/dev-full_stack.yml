@@ -1,0 +1,11 @@
+name: dev-full_stack-tf-apply
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    - name: Deploy full AWS ECS FX stack 
+      run: echo Deploy full AWS ECS FX stack
