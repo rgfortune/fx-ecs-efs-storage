@@ -1,11 +1,15 @@
-name: 'dev-bastion-tf-speculative-plan'
+name: 'dev-security_groups-tf-apply'
 
 on:
+  workflow_run:
+    workflows: [dev-full_stack-tf-apply]
+    types: [completed]
   workflow_dispatch:
 
 jobs:
-  bastion:
-    name: 'bastion'
+  security_groups:
+    name: 'security_groups'
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: dev
     env:
@@ -54,14 +58,19 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
-      working-directory: ./environments/dev/services/3_bastion
+      working-directory: ./environments/dev/services/2_security_groups
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
-      working-directory: ./environments/dev/services/3_bastion
+      working-directory: ./environments/dev/services/2_security_groups
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan
-      working-directory: ./environments/dev/services/3_bastion
+      working-directory: ./environments/dev/services/2_security_groups
+
+    # Apply the Terraform execution plan
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./environments/dev/services/2_security_groups

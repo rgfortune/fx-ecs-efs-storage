@@ -5,128 +5,6 @@ on:
 
 jobs:
 
-  fargate_cluster:
-    name: 'fargate_cluster'
-    runs-on: ubuntu-latest
-    environment: dev
-    env:
-      # Account and Environment
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      TF_VAR_region: us-east-1
-      TF_VAR_env: dev
-
-      # VPC
-      TF_VAR_vpc_name: "Fargate FX VPC"
-      TF_VAR_cidr: 10.193.36.0/24
-      TF_VAR_project_name: "Forex"
-      TF_VAR_owner: "Ricardo Fortune"
-
-      # Bastion
-      TF_VAR_key_name: automation
-      TF_VAR_bastion_ami: ami-0742b4e673072066f
-      TF_VAR_bastion_type: t3.micro
-
-      # EC2 Security Groups
-      TF_VAR_home_ip: 79.73.190.155/32
-
-      # Cluster
-      TF_VAR_cluster_name: fx
-      TF_VAR_cluster_tag: "FX Cluster"
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    # Install the latest version of Terraform CLI
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 1.0.4
-
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init
-      working-directory: ./environments/dev/services/3_fargate-cluster
-
-    # Generates an execution plan for Terraform
-    - name: Terraform Destroy Plan
-      run: terraform plan -destroy
-      working-directory: ./environments/dev/services/3_fargate-cluster
-
-
-    # Apply the Terraform destroy execution plan
-    - name: Terraform Destroy
-      run: terraform apply -destroy -auto-approve
-      working-directory: ./environments/dev/services/3_fargate-cluster
-
-  task-definitions:
-    name: 'task-definitions'
-    runs-on: ubuntu-latest
-    environment: dev
-    env:
-      # Account and Environment
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      TF_VAR_region: us-east-1
-      TF_VAR_env: dev
-
-      # VPC
-      TF_VAR_vpc_name: "Fargate FX VPC"
-      TF_VAR_cidr: 10.193.36.0/24
-      TF_VAR_project_name: "Forex"
-      TF_VAR_owner: "Ricardo Fortune"
-
-      # Bastion
-      TF_VAR_key_name: automation
-      TF_VAR_bastion_ami: ami-0742b4e673072066f
-      TF_VAR_bastion_type: t3.micro
-
-      # EC2 Security Groups
-      TF_VAR_home_ip: 79.73.190.155/32
-
-      # Cluster
-      TF_VAR_cluster_name: fx
-      TF_VAR_cluster_tag: "FX Cluster"
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    # Install the latest version of Terraform CLI
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 1.0.4
-
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init
-      working-directory: ./environments/dev/services/5_task-definitions
-
-    # Generates an execution plan for Terraform
-    - name: Terraform Destroy Plan
-      run: terraform plan -destroy
-      working-directory: ./environments/dev/services/5_task-definitions
-
-
-    # Apply the Terraform destroy execution plan
-    - name: Terraform Destroy
-      run: terraform apply -destroy -auto-approve
-      working-directory: ./environments/dev/services/5_task-definitions
-
   bastion:
     name: 'bastion'
     runs-on: ubuntu-latest
@@ -175,21 +53,21 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
-      working-directory: ./environments/dev/services/2_bastion
+      working-directory: ./environments/dev/services/3_bastion
 
     # Generates an execution plan for Terraform
     - name: Terraform Destroy Plan
       run: terraform plan -destroy
-      working-directory: ./environments/dev/services/2_bastion
+      working-directory: ./environments/dev/services/3_bastion
 
 
     # Apply the Terraform destroy execution plan
     - name: Terraform Destroy
       run: terraform apply -destroy -auto-approve
-      working-directory: ./environments/dev/services/2_bastion
+      working-directory: ./environments/dev/services/3_bastion
 
   efs-fx-storage:
-    needs: [bastion, task-definitions]
+    needs: [bastion]
     name: 'efs-fx-storage'
     runs-on: ubuntu-latest
     environment: dev
@@ -252,7 +130,7 @@ jobs:
 
   iam:
     name: 'iam'
-    needs: [task-definitions, bastion]
+    needs: [bastion]
     runs-on: ubuntu-latest
     environment: dev
     env:

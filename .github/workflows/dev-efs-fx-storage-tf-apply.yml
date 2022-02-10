@@ -2,7 +2,7 @@ name: 'dev-efs-fx-storage-tf-apply'
 
 on:
   workflow_run:
-    workflows: [dev-fargate_cluster-tf-apply]
+    workflows: [dev-vpc-tf-apply]
     types: [completed]
   workflow_dispatch:
 
