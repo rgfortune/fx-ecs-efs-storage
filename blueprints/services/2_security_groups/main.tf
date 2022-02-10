@@ -63,7 +63,7 @@ resource "aws_security_group" "efs" {
     from_port       = 2049
     to_port         = 2049
     protocol        = "tcp"
-    security_groups = [aws_security_group.fx_task]
+    security_groups = [aws_security_group.fx_task.id]
   }
 
   tags = {
