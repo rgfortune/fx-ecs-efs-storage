@@ -21,7 +21,3 @@ variable "env" {
   type        = string
   description = "Environment"
 }
-variable "home_ip" {
-  type        = string
-  description = "Home IP Address"
-}

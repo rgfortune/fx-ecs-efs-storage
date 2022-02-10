@@ -20,10 +20,10 @@ data "terraform_remote_state" "vpc" {
 }
 
 #------------------------------------------------
-# Fargate Cluster State Reference
+# Security Groups State Reference
 #------------------------------------------------
 
-data "terraform_remote_state" "fargate_cluster" {
+data "terraform_remote_state" "security_groups" {
   backend = "s3"
 
   # Paths are relative to the calling/root module.
@@ -31,7 +31,7 @@ data "terraform_remote_state" "fargate_cluster" {
 
   config = {
     bucket = "ecs-fx-tfstate"
-    key    = "ecs-fx-fargate_cluster.terraform.tfstate"
+    key    = "ecs-fx-security_groups.terraform.tfstate"
     region = "us-east-1"
   }
 

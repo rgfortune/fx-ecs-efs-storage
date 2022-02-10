@@ -14,6 +14,4 @@ module "bastion" {
   bastion_type = var.bastion_type
   region       = var.region
 
-  # Security Group Variables
-  home_ip = var.home_ip
 }

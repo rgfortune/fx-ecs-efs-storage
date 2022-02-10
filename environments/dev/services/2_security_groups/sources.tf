@@ -9,7 +9,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "ecs-fx-tfstate"
-    key    = "ecs-fx-fargate_cluster.terraform.tfstate"
+    key    = "ecs-fx-security_groups.terraform.tfstate"
     region = "us-east-1"
   }
 }
