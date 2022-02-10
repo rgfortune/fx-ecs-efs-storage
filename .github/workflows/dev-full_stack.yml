@@ -8,5 +8,5 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
 
-      - name: Deploy full AWS ECS FX stack 
-        run: echo Deploy full AWS ECS FX stack
+      - name: Deploy EFS storage and bastion server
+        run: echo Deploy EFS storage and bastion server
