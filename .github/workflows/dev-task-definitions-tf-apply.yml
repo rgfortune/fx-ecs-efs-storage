@@ -1,18 +1,6 @@
 name: 'dev-task-definitions-tf-apply'
 
 on:
-  push:
-    branches:
-    - master
-    paths:
-    - 'environments/dev/services/5_task-definitions'
-    - 'blueprints/services/5_task-definitions'
-    - '.github/workflows/dev-task-definitions-tf-speculative-plan.yml'
-  pull_request:
-    paths:
-    - 'environments/dev/services/5_task-definitions'
-    - 'blueprints/services/5_task-definitions'
-    - '.github/workflows/dev-task-definitions-tf-speculative-plan.yml'
   workflow_dispatch:
 
 jobs:

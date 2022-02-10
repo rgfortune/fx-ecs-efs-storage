@@ -1,18 +1,6 @@
 name: 'dev-fargate_cluster-tf-apply'
 
 on:
-  push:
-    branches:
-    - master
-    paths:
-    - 'environments/dev/services/3_fargate-cluster'
-    - 'blueprints/services/3_fargate-cluster'
-    - '.github/workflows/dev-fargate_cluster-tf-speculative-plan.yml'
-  pull_request:
-    paths:
-    - 'environments/dev/services/3_fargate-cluster'
-    - 'blueprints/services/3_fargate-cluster'
-    - '.github/workflows/dev-fargate_cluster-tf-speculative-plan.yml'
   workflow_run:
     workflows: [dev-vpc-tf-apply]
     types: [completed]
