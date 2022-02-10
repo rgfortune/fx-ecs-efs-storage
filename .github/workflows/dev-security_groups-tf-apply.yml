@@ -2,7 +2,7 @@ name: 'dev-security_groups-tf-apply'
 
 on:
   workflow_run:
-    workflows: [dev-full_stack-tf-apply]
+    workflows: [dev-vpc-tf-apply]
     types: [completed]
   workflow_dispatch:
 
