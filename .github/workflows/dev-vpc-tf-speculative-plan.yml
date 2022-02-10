@@ -1,18 +1,6 @@
 name: 'dev-vpc-tf-speculative-plan'
 
 on:
-  push:
-    branches:
-    - master
-    paths:
-    - 'environments/dev/vpc'
-    - 'blueprints/vpc'
-    - '.github/workflows/dev-vpc-tf-speculative-plan.yml'
-  pull_request:
-    paths:
-    - 'environments/dev/vpc'
-    - 'blueprints/vpc'
-    - '.github/workflows/dev-vpc-tf-speculative-plan.yml'
   workflow_dispatch:
 
 jobs:

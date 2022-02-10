@@ -1,18 +1,6 @@
 name: 'dev-bastion-tf-speculative-plan'
 
 on:
-  push:
-    branches:
-    - master
-    paths:
-    - 'environments/dev/services/2_bastion'
-    - 'blueprints/services/2_bastion'
-    - '.github/workflows/dev-bastion-tf-speculative-plan.yml'
-  pull_request:
-    paths:
-    - 'environments/dev/services/2_bastion'
-    - 'blueprints/services/2_bastion'
-    - '.github/workflows/dev-bastion-tf-speculative-plan.yml'
   workflow_dispatch:
 
 jobs:

@@ -1,18 +1,6 @@
 name: 'dev-iam-tf-speculative-plan'
 
 on:
-  push:
-    branches:
-    - master
-    paths:
-    - 'environments/dev/services/1_iam'
-    - 'blueprints/services/1_iam'
-    - '.github/workflows/dev-iam-tf-speculative-plan.yml'
-  pull_request:
-    paths:
-    - 'environments/dev/services/1_iam'
-    - 'blueprints/services/1_iam'
-    - '.github/workflows/dev-iam-tf-speculative-plan.yml'
   workflow_dispatch:
 
 jobs:
