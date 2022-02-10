@@ -2,7 +2,7 @@ name: 'dev-bastion-tf-apply'
 
 on:
   workflow_run:
-    workflows: [dev-vpc-tf-apply]
+    workflows: [dev-security_groups-tf-apply]
     types: [completed]
   workflow_dispatch:
 
