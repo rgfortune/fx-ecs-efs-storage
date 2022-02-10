@@ -3,7 +3,7 @@
 #------------------------------------------------
 
 module "bastion" {
-  source = "../../../../blueprints/services/2_bastion"
+  source = "../../../../blueprints/services/3_bastion"
 
   # VPC Variables
   env = var.env
